@@ -1,6 +1,6 @@
 # Web server <-> Controller protocol
 
-- IPC: POSIX message queue, name `/ctrl_cmd_q`
+- IPC: POSIX message queue, name `/led_queue`
 - Message size: 64 bytes, null-terminated text
 - Max messages in queue: 10
 - Commands: LED_ON, LED_OFF, START, STOP, SET_INTERVAL:<50-5000>

@@ -7,7 +7,7 @@
 #include <mqueue.h>
 #include <fcntl.h>
 
-#define QUEUE_NAME "/ctrl_cmd_q"
+#define QUEUE_NAME "/led_queue"
 
 static int interrupted = 0;
 static void on_sigint(int sig) { interrupted = 1; }
