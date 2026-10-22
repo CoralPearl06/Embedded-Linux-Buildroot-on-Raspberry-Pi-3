@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h1>LED Control</h1>
+  <button onclick="send('LED_ON')">LED ON</button>
+  <button onclick="send('LED_OFF')">LED OFF</button>
+  <button onclick="send('START')">START</button>
+  <button onclick="send('STOP')">STOP</button>
+  <br><br>
+  Interval (ms): <input id="iv" value="500" size="6">
+  <button onclick="send('SET_INTERVAL:' + document.getElementById('iv').value)">Set interval</button>
+  <button onclick="send('HACK_THE_PLANET')">Send garbage (test)</button>
+  <p id="status">Connecting...</p>
+  <p>Server reply: <b id="reply">-</b></p>
+  <script>
+    const ws = new WebSocket("ws://" + location.host, "cmd");
+    ws.onopen    = () => document.getElementById("status").textContent = "Connected";
+    ws.onclose   = () => document.getElementById("status").textContent = "Disconnected";
+    ws.onmessage = (e) => document.getElementById("reply").textContent = e.data;
+    function send(c) { ws.send(c); }
+  </script>
+</body>
+</html>
