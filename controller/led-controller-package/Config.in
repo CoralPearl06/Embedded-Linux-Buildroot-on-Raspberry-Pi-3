@@ -1,0 +1,1 @@
+source "$BR2_EXTERNAL_LED_CONTROLLER_PATH/package/led-controller/Config.in"

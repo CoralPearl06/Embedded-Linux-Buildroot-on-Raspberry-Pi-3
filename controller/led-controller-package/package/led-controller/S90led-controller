@@ -1,0 +1,23 @@
+#!/bin/sh
+
+case "$1" in
+    start)
+        echo "Starting LED controller..."
+        start-stop-daemon -S -b -x /usr/bin/led-controller
+        ;;
+    stop)
+        echo "Stopping LED controller..."
+        start-stop-daemon -K -x /usr/bin/led-controller
+        ;;
+    restart)
+        "$0" stop
+        sleep 1
+        "$0" start
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+        ;;
+esac
+
+exit 0

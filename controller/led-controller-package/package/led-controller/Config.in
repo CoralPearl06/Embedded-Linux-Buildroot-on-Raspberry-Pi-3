@@ -1,0 +1,7 @@
+config BR2_PACKAGE_LED_CONTROLLER
+    bool "led-controller"
+    depends on BR2_USE_MMU
+    select BR2_PACKAGE_LIBGPIOD
+    help
+      Hardware controller application for Raspberry Pi 3.
+      Uses POSIX message queues and libgpiod.
