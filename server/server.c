@@ -38,6 +38,13 @@ static int validate(const char *m, const char **err) {
     return 0;
 }
 
+/* controller uses shorter names: LED_ON -> ON, LED_OFF -> OFF */
+static const char *to_controller(const char *m) {
+    if (!strcmp(m, "LED_ON"))  return "ON";
+    if (!strcmp(m, "LED_OFF")) return "OFF";
+    return m;
+}
+
 static void reply(struct lws *wsi, const char *json) {
     unsigned char buf[LWS_PRE + 160];
     size_t n = strlen(json);
@@ -65,7 +72,7 @@ static int callback_cmd(struct lws *wsi, enum lws_callback_reasons reason,
         if (!validate(msg, &err)) {
             printf("REJECTED: %s (%s)\n", msg, err);
             snprintf(out, sizeof out, "{\"status\":\"error\",\"msg\":\"%s\"}", err);
-        } else if (mq_send(q, msg, strlen(msg) + 1, 0) == 0) {
+        } else if (mq_send(q, to_controller(msg), strlen(to_controller(msg)) + 1, 0) == 0) {
             printf("SENT TO QUEUE: %s\n", msg);
             snprintf(out, sizeof out, "{\"status\":\"ok\",\"cmd\":\"%s\"}", msg);
         } else if (errno == EAGAIN) {
