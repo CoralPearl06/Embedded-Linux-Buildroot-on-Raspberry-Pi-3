@@ -13,8 +13,8 @@
 #define QUEUE_NAME "/led_queue"
 #define MSG_SIZE 64
 
-#define MIN_INTERVAL_MS 100
-#define MAX_INTERVAL_MS 10000
+#define MIN_INTERVAL_MS 50
+#define MAX_INTERVAL_MS 5000
 
 #define POLL_DELAY_NS 1000000L   /* 1 ms */
 
@@ -225,7 +225,7 @@ int main(void)
         if (bytes >= 0)
         {
             command[bytes] = '\0';
-
+	    printf("[DEBUG] Received command: '%s' (%zd bytes)\n",command, bytes);
             if (strcmp(command, "ON") == 0)
             {
                 blinking = 0;
